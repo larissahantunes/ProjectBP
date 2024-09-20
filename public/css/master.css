@@ -8,6 +8,10 @@
     font-family: "Nunito", sans-serif;
     font-weight: 200;
     font-style: normal;
+    user-select: none; /* Para navegadores modernos */
+    -webkit-user-select: none; /* Para Safari */
+    -moz-user-select: none; /* Para Firefox */
+    -ms-user-select: none; /* Para Internet Explorer/Edge */
 }
 
 html,body {
