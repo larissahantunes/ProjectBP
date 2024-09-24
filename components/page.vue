@@ -5,8 +5,9 @@
 
 <style>
     .page {
-        width: 100vw;
-        height: 100vh;
-        position: relative;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      z-index: -1;
     }
 </style>
