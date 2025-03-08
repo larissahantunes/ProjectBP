@@ -1,5 +1,5 @@
 <template>
-    <section class="slider-area" ref="slider">
+  <section class="slider-area" ref="slider">
     <section class="slider-data">
       <span ref="title" class="title"></span>
       <span ref="description" class="description"></span>
@@ -108,10 +108,6 @@
 </script>
 
 <style>
-    
-
-
-
 .clickable {
     cursor: pointer;
 } 

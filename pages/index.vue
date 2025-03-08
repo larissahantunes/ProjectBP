@@ -12,6 +12,9 @@
   <page>
     <slider/>
   </page>
+  <page>
+    <div></div>
+  </page>
 </template>
 
 <style>
@@ -157,9 +160,13 @@ export default {
     page,
     slider
   },
-  data() {
+  data() { 
+    const config = useRuntimeConfig()
     return {
-      disclaimer: true
+      disclaimer: true,
+      videoIds:[],
+      config 
+    
     }
   },
   methods: {
@@ -169,10 +176,10 @@ export default {
       }, 5000)
     }
   },
-  mounted() {
+  async mounted() { console.log((await fetch(this.config.public.env.temp)).json())
     this.presentation()
   }
 }
 </script>
-  
+
   

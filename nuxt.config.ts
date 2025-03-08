@@ -12,5 +12,10 @@ export default defineNuxtConfig({
         lang:'pt-BR'
       }
     }
+  },
+  runtimeConfig:{
+    public:{
+      env: require('dotenv').config().parsed
+    }
   }
 })
