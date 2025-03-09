@@ -4,16 +4,28 @@
       <video src="/bp-shutdown.mp4" autoplay muted playsinline loop ref="video" class="fullscreen-video"></video>
     </div>
     <section class="presentation">
-      <span v-if="disclaimer" class="disclaimer">Site criado por fã, sem associação com a empresa YG Entertainment ou com o grupo Blackpink</span>
-      <section v-if="!disclaimer" class="description"><span>A persistência leva ao sucesso, conheça a história do maior Girl Group feminino do Kpop</span>
-        <h1><span>Black</span><span>pink</span></h1></section>
+      <span v-if="disclaimer" class="disclaimer">
+        Site criado por fã, sem associação com a empresa YG Entertainment ou com o grupo Blackpink
+      </span>
+      <section v-if="!disclaimer" class="description">
+        <span>A persistência leva ao sucesso, conheça a história do maior Girl Group do Kpop</span>
+        <h1><span>Black</span><span>pink</span></h1>
+      </section>
     </section>
   </page>
   <page>
     <slider/>
   </page>
   <page>
-    <div></div>
+    <section class="playlist--area">
+      <video-card
+        v-for="video in videos"
+        :key="video.id"
+        :title="video.snippet.title"
+        :video-id="video.snippet.resourceId.videoId"
+        :thumbnail="video.snippet.thumbnails.maxres.url"
+      />
+    </section>
   </page>
 </template>
 
@@ -95,6 +107,15 @@
   animation: animationpink 3s infinite;
 }
 
+.playlist--area {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 25px;
+  padding: 20px;
+}
+
 @keyframes animationblack {
   0% {
     color: pink;
@@ -150,36 +171,36 @@
 }
 </style>
 
-<script>
-import page from '~/components/page.vue';
-import slider from '~/components/slider.vue';
+<script setup>
+import page from '~/components/page.vue'
+import slider from '~/components/slider.vue'
+import videoCard from '~/components/videoCard.vue'
+import { ref } from 'vue'
 
-export default {
-  name: 'appLayout',
-  components: {
-    page,
-    slider
-  },
-  data() { 
-    const config = useRuntimeConfig()
-    return {
-      disclaimer: true,
-      videoIds:[],
-      config 
-    
-    }
-  },
-  methods: {
-    presentation() {
-      setTimeout(() => {
-        this.disclaimer = false
-      }, 5000)
-    }
-  },
-  async mounted() { console.log((await fetch(this.config.public.env.temp)).json())
-    this.presentation()
+const { public: { env } } = useRuntimeConfig()
+const videos = ref([])
+const disclaimer = ref(true)
+
+function presentation() {
+  setTimeout(() => {
+    disclaimer.value = false
+  }, 5000)
+}
+
+async function loadPlaylist () {
+  try {
+    const response = await fetch(env.YOUTUBE_API_URL)
+    const { items } = await response.json()
+    videos.value = items
+  } catch (error) {
+    console.error({ error })
   }
 }
+
+onMounted(() => {
+  presentation()
+  loadPlaylist()
+})
 </script>
 
   
