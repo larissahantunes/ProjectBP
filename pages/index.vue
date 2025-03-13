@@ -21,9 +21,9 @@
       <video-card
         v-for="video in videos"
         :key="video.id"
-        :title="video.snippet.title"
-        :video-id="video.snippet.resourceId.videoId"
-        :thumbnail="video.snippet.thumbnails.maxres.url"
+        :title="video?.snippet?.title"
+        :video-id="video?.snippet?.resourceId?.videoId"
+        :thumbnail="video?.snippet?.thumbnails?.maxres?.url"
       />
     </section>
   </page>
